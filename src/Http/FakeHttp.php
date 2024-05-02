@@ -36,20 +36,15 @@ class FakeHttp
     private ?object $actor = null;
     private ?SessionInterface $session = null;
     private BinderInterface $binder;
-    private ContainerInterface $container;
 
     public function __construct(
-        ContainerInterface $container,
+        #[Proxy] private readonly ContainerInterface $container,
         private readonly FileFactory $fileFactory,
         private readonly \Closure $scope,
     ) {
         $this->binder = $container
             ->get(InvokerInterface::class)
             ->invoke(static fn (#[Proxy] BinderInterface $binder): BinderInterface => $binder);
-
-        $this->container = $container
-            ->get(InvokerInterface::class)
-            ->invoke(static fn (#[Proxy] ContainerInterface $container): ContainerInterface => $container);
     }
 
     public function withActor(object $actor): self

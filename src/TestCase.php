@@ -233,16 +233,10 @@ abstract class TestCase extends BaseTestCase
             return parent::runTest();
         }
 
-        $previousApp = $this->getApp();
-
         $scopes = \is_array($scope->scope) ? $scope->scope : [$scope->scope];
-        $result = $this->runScopes($scopes, function (Container $container): mixed {
-            $this->initApp([...static::ENV, ...$this->getEnvVariablesFromConfig()], $container);
-
+        $result = $this->runScopes($scopes, function (): mixed {
             return parent::runTest();
         }, $this->getContainer(), $scope->bindings);
-
-        $this->app = $previousApp;
 
         return $result;
     }
