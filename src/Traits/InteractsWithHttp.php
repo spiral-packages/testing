@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Spiral\Testing\Traits;
 
+use Spiral\Core\FactoryInterface;
 use Spiral\Testing\Http\FakeHttp;
 use Spiral\Testing\Http\FileFactory;
 
@@ -16,12 +17,11 @@ trait InteractsWithHttp
 
     final public function fakeHttp(): FakeHttp
     {
-        return new FakeHttp(
-            $this->getContainer(),
-            $this->getFileFactory(),
-            function (\Closure $closure, array $bindings = []) {
+        return $this->getContainer()->get(FactoryInterface::class)->make(FakeHttp::class, [
+            'fileFactory' => $this->getFileFactory(),
+            'scope' => function (\Closure $closure, array $bindings = []) {
                 return $this->runScoped($closure, $bindings);
             }
-        );
+        ]);
     }
 }

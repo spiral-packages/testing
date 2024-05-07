@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Spiral\Testing\Tests\Http;
 
 use PHPUnit\Framework\ExpectationFailedException;
+use Spiral\Core\Internal\Introspector;
+use Spiral\Testing\Attribute\TestScope;
 use Spiral\Testing\Tests\TestCase;
 
 final class FakeHttpTest extends TestCase
@@ -58,5 +60,21 @@ final class FakeHttpTest extends TestCase
             $arr,
             $response->getJsonParsedBody()
         );
+    }
+
+    #[TestScope('foo')]
+    public function testGetWithQueryParamsInScope(): void
+    {
+        $response = $this->fakeHttp()->get('/get/query-params', ['foo' => 'bar', 'baz' => ['foo1' => 'bar1']]);
+        $response->assertBodySame('{"foo":"bar","baz":{"foo1":"bar1"}}');
+        $this->assertSame(['foo', 'root'], Introspector::scopeNames($this->getContainer()));
+    }
+
+    #[TestScope(['foo', 'bar'])]
+    public function testGetWithQueryParamsInNestedScope(): void
+    {
+        $response = $this->fakeHttp()->get('/get/query-params', ['foo' => 'bar', 'baz' => ['foo1' => 'bar1']]);
+        $response->assertBodySame('{"foo":"bar","baz":{"foo1":"bar1"}}');
+        $this->assertSame(['bar', 'foo', 'root'], Introspector::scopeNames($this->getContainer()));
     }
 }

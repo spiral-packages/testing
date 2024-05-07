@@ -6,6 +6,7 @@ namespace Spiral\Testing\Http;
 
 use Nyholm\Psr7\ServerRequest;
 use Nyholm\Psr7\Stream;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
@@ -16,7 +17,9 @@ use Spiral\Auth\ActorProviderInterface;
 use Spiral\Auth\TokenStorageInterface;
 use Spiral\Auth\Transport\HeaderTransport;
 use Spiral\Auth\TransportRegistry;
-use Spiral\Core\Container;
+use Spiral\Core\Attribute\Proxy;
+use Spiral\Core\BinderInterface;
+use Spiral\Core\InvokerInterface;
 use Spiral\Http\Http;
 use Spiral\Session\SessionInterface;
 use Spiral\Testing\Auth\FakeActorProvider;
@@ -32,12 +35,16 @@ class FakeHttp
 
     private ?object $actor = null;
     private ?SessionInterface $session = null;
+    private BinderInterface $binder;
 
     public function __construct(
-        private readonly Container $container,
+        #[Proxy] private readonly ContainerInterface $container,
         private readonly FileFactory $fileFactory,
         private readonly \Closure $scope,
     ) {
+        $this->binder = $container
+            ->get(InvokerInterface::class)
+            ->invoke(static fn (#[Proxy] BinderInterface $binder): BinderInterface => $binder);
     }
 
     public function withActor(object $actor): self
@@ -129,7 +136,7 @@ class FakeHttp
     public function withMiddleware(string ...$middleware): self
     {
         foreach ($middleware as $name) {
-            $this->container->removeBinding($name);
+            $this->binder->removeBinding($name);
         }
 
         return $this;
@@ -138,8 +145,8 @@ class FakeHttp
     public function withoutMiddleware(string ...$middleware): self
     {
         foreach ($middleware as $name) {
-            $this->container->removeBinding($name);
-            $this->container->bindSingleton(
+            $this->binder->removeBinding($name);
+            $this->binder->bindSingleton(
                 $name,
                 new class implements MiddlewareInterface {
                     public function process(
