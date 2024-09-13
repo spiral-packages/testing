@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Spiral\Testing\Tests\App\Controller;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Spiral\Core\Internal\Introspector;
 use Spiral\Router\Annotation\Route;
 
 class GetController
@@ -19,5 +20,11 @@ class GetController
     public function headers(ServerRequestInterface $request): array
     {
         return $request->getHeaders();
+    }
+
+    #[Route('/get/scopes', 'get.scopes')]
+    public function scopes(ServerRequestInterface $request): array
+    {
+        return Introspector::scopeNames();
     }
 }
