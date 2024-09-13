@@ -17,6 +17,19 @@ final class FakeHttpTest extends TestCase
         $response->assertBodySame('[]');
     }
 
+    #[TestScope('http')]
+    public function testHttpScopeDoesNotConflict(): void
+    {
+        $response = $this->fakeHttp()->get('/get/query-params');
+        $response->assertBodySame('[]');
+    }
+
+    public function testAutoHttpScope(): void
+    {
+        $response = $this->fakeHttp()->get('/get/scopes');
+        $response->assertBodySame('["http-request","http","root"]');
+    }
+
     public function testGetWithQueryParams(): void
     {
         $response = $this->fakeHttp()->get('/get/query-params', ['foo' => 'bar', 'baz' => ['foo1' => 'bar1']]);

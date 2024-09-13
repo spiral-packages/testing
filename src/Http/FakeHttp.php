@@ -37,6 +37,9 @@ class FakeHttp
     private ?SessionInterface $session = null;
     private BinderInterface $binder;
 
+    /**
+     * @param \Closure(\Closure $closure, array $bindings): mixed $scope Scope runner
+     */
     public function __construct(
         #[Proxy] private readonly ContainerInterface $container,
         private readonly FileFactory $fileFactory,
@@ -418,9 +421,7 @@ class FakeHttp
             return $this->getHttp()->handle($request);
         };
 
-        $scope = $this->scope;
-
-        return new TestResponse($scope($handler, $bindings));
+        return new TestResponse(($this->scope)($handler, $bindings));
     }
 
     protected function validateRequestData($data): void

@@ -14,6 +14,7 @@ use Spiral\Config\Patch\Set;
 use Spiral\Core\ConfigsInterface;
 use Spiral\Core\Container;
 use Spiral\Core\ContainerScope;
+use Spiral\Core\Internal\Introspector;
 use Spiral\Core\Scope;
 use Spiral\Testing\Attribute\TestScope;
 
@@ -173,7 +174,7 @@ abstract class TestCase extends BaseTestCase
      * @param array<string, string|array|callable|object> $bindings
      * @throws \Throwable
      */
-    public function runScoped(Closure $callback, array $bindings = []): mixed
+    public function runScoped(Closure $callback, array $bindings = [], ?string $name = null): mixed
     {
         if ($this->environment) {
             $bindings[EnvironmentInterface::class] = $this->environment;
@@ -234,7 +235,7 @@ abstract class TestCase extends BaseTestCase
         }
 
         $scopes = \is_array($scope->scope) ? $scope->scope : [$scope->scope];
-        $result = $this->runScopes($scopes, function (): mixed {
+        $result = self::runScopes($scopes, function (): mixed {
             return parent::runTest();
         }, $this->getContainer(), $scope->bindings);
 
@@ -280,18 +281,23 @@ abstract class TestCase extends BaseTestCase
         return null;
     }
 
-    private function runScopes(array $scopes, Closure $callback, Container $container, array $bindings): mixed
+    private static function runScopes(array $scopes, Closure $callback, Container $container, array $bindings): mixed
     {
+        begin:
         if ($scopes === []) {
             return $container->runScope($bindings, $callback);
         }
 
+
         $scope = \array_shift($scopes);
+        if ($scopes !== null && \in_array($scope, Introspector::scopeNames(), true)) {
+            goto begin;
+        }
 
         return $container->runScope(
             new Scope($scope, []),
             function (Container $container) use ($scopes, $callback, $bindings): mixed {
-                return $this->runScopes($scopes, $callback, $container, $bindings);
+                return self::runScopes($scopes, $callback, $container, $bindings);
             },
         );
     }
