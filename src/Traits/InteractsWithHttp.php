@@ -20,7 +20,7 @@ trait InteractsWithHttp
         return $this->getContainer()->get(FactoryInterface::class)->make(FakeHttp::class, [
             'fileFactory' => $this->getFileFactory(),
             'scope' => function (\Closure $closure, array $bindings = []) {
-                return $this->runScoped($closure, $bindings);
+                return self::runScopes(['http'], $closure, $this->getContainer(), $bindings);
             }
         ]);
     }
