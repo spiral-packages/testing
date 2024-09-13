@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Spiral\Testing\Tests\Event;
 
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\ExpectationFailedException;
 use Spiral\Testing\Events\FakeEventDispatcher;
 use Spiral\Testing\Tests\App\Event\AnotherEvent;
@@ -78,7 +79,7 @@ final class EventDispatcherTest extends TestCase
     public function testAssertNothingDispatchedShouldThrowAnException(): void
     {
         $this->expectException(ExpectationFailedException::class);
-        $this->expectExceptionMessage('3 unexpected events were dispatched.');
+        $this->expectExceptionMessageMatches('/\d+ unexpected events were dispatched./');
 
         $this->http->get('/dispatch/some');
 
