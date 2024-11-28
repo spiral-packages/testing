@@ -53,6 +53,7 @@ trait InteractsWithConsole
         ?int $verbosityLevel = null
     ): string {
         $input = new ArrayInput($args);
+        $input->setInteractive(false);
         $output = $output ?? new BufferedOutput();
         $output->setVerbosity($verbosityLevel ?? $this->defaultVerbosityLevel);
 
