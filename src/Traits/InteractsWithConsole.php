@@ -55,6 +55,7 @@ trait InteractsWithConsole
         $input = new ArrayInput($args);
         $input->setInteractive(false);
         $output = $output ?? new BufferedOutput();
+        /** @psalm-suppress ArgumentTypeCoercion */
         $output->setVerbosity($verbosityLevel ?? $this->defaultVerbosityLevel);
 
         $this->getConsole()->run($command, $input, $output);
