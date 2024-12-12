@@ -15,7 +15,7 @@ trait InteractsWithStorage
     public function fakeStorage(): StorageInterface
     {
         $factory = new FakeBucketFactory(
-            $root = $this->getDirectoryByAlias('runtime', 'testing/disks')
+            $root = $this->getDirectoryByAlias('runtime', 'testing/disks'),
         );
 
         $this->cleanupDirectories($root);
@@ -27,7 +27,7 @@ trait InteractsWithStorage
             $storage->add(
                 $name,
                 $factory->createFromAdapter($adapter, $name, new StaticResolver(new Uri('http://127.0.0.1/public'))),
-                true
+                true,
             );
         }
 

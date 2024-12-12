@@ -12,7 +12,7 @@ final class TestResponse implements \Stringable
     private array $cookies;
 
     public function __construct(
-        private readonly ResponseInterface $response
+        private readonly ResponseInterface $response,
     ) {
         $this->cookies = $this->fetchCookies($this->response->getHeader('Set-Cookie'));
     }
@@ -29,7 +29,7 @@ final class TestResponse implements \Stringable
     {
         TestCase::assertTrue(
             $this->response->hasHeader($name),
-            \sprintf('Response does not contain header with name [%s].', $name)
+            \sprintf('Response does not contain header with name [%s].', $name),
         );
 
         $headerValue = $this->response->getHeaderLine($name);
@@ -38,7 +38,7 @@ final class TestResponse implements \Stringable
             TestCase::assertSame(
                 $value,
                 $headerValue,
-                \sprintf("Header [%s] was found, but value [%s] does not match [%s].", $name, $headerValue, $value)
+                \sprintf("Header [%s] was found, but value [%s] does not match [%s].", $name, $headerValue, $value),
             );
         }
 
@@ -49,7 +49,7 @@ final class TestResponse implements \Stringable
     {
         TestCase::assertFalse(
             $this->response->hasHeader($name),
-            \sprintf('Response contains header with name [%s].', $name)
+            \sprintf('Response contains header with name [%s].', $name),
         );
 
         return $this;
@@ -66,7 +66,7 @@ final class TestResponse implements \Stringable
                 $this->response->getReasonPhrase(),
                 $status,
                 (string) $this->response->getBody(),
-            )
+            ),
         );
 
         return $this;
@@ -93,7 +93,7 @@ final class TestResponse implements \Stringable
 
         TestCase::assertEmpty(
             $this->response->getBody()->getContents(),
-            'Response content should be empty.'
+            'Response content should be empty.',
         );
 
         return $this;
@@ -123,8 +123,8 @@ final class TestResponse implements \Stringable
     {
         TestCase::assertSame(
             $needle,
-            (string)$this->response->getBody(),
-            \sprintf('Response is not same with [%s]', $needle)
+            (string) $this->response->getBody(),
+            \sprintf('Response is not same with [%s]', $needle),
         );
 
         return $this;
@@ -134,8 +134,8 @@ final class TestResponse implements \Stringable
     {
         TestCase::assertNotSame(
             $needle,
-            (string)$this->response->getBody(),
-            \sprintf('Response is same with [%s]', $needle)
+            (string) $this->response->getBody(),
+            \sprintf('Response is same with [%s]', $needle),
         );
 
         return $this;
@@ -145,8 +145,8 @@ final class TestResponse implements \Stringable
     {
         TestCase::assertStringContainsString(
             $needle,
-            (string)$this->response->getBody(),
-            \sprintf('Response doesn\'t contain [%s]', $needle)
+            (string) $this->response->getBody(),
+            \sprintf('Response doesn\'t contain [%s]', $needle),
         );
 
         return $this;
@@ -157,7 +157,7 @@ final class TestResponse implements \Stringable
         TestCase::assertArrayHasKey(
             $key,
             $this->getCookies(),
-            \sprintf('Response doesn\'t have cookie with name [%s]', $key)
+            \sprintf('Response doesn\'t have cookie with name [%s]', $key),
         );
 
         return $this;
@@ -168,7 +168,7 @@ final class TestResponse implements \Stringable
         TestCase::assertArrayNotHasKey(
             $key,
             $this->getCookies(),
-            \sprintf('Response has cookie with name [%s]', $key)
+            \sprintf('Response has cookie with name [%s]', $key),
         );
 
         return $this;
@@ -181,7 +181,7 @@ final class TestResponse implements \Stringable
         TestCase::assertSame(
             $value,
             $this->cookies[$key],
-            \sprintf('Response cookie with name [%s] is not equal.', $key)
+            \sprintf('Response cookie with name [%s] is not equal.', $key),
         );
 
         return $this;
@@ -197,22 +197,6 @@ final class TestResponse implements \Stringable
         return $this->response;
     }
 
-    public function __toString(): string
-    {
-        return (string)$this->getOriginalResponse()->getBody();
-    }
-
-    private function fetchCookies(array $header): array
-    {
-        $result = [];
-        foreach ($header as $line) {
-            $cookie = explode('=', $line);
-            $result[$cookie[0]] = rawurldecode(substr($cookie[1], 0, strpos($cookie[1], ';')));
-        }
-
-        return $result;
-    }
-
     /**
      * @return array<non-empty-string, string>
      */
@@ -224,8 +208,24 @@ final class TestResponse implements \Stringable
     public function getJsonParsedBody(): array
     {
         return \json_decode(
-            (string)$this->response->getBody(),
-            true
+            (string) $this->response->getBody(),
+            true,
         );
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->getOriginalResponse()->getBody();
+    }
+
+    private function fetchCookies(array $header): array
+    {
+        $result = [];
+        foreach ($header as $line) {
+            $cookie = explode('=', $line);
+            $result[$cookie[0]] = rawurldecode(substr($cookie[1], 0, strpos($cookie[1], ';')));
+        }
+
+        return $result;
     }
 }

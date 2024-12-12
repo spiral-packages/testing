@@ -71,26 +71,26 @@ class TestApp extends AbstractKernel implements TestableKernelInterface
         }
 
         if (! isset($directories['app'])) {
-            $directories['app'] = $directories['root'].'/app/';
+            $directories['app'] = $directories['root'] . '/app/';
         }
 
         return array_merge(
             [
                 // public root
-                'public' => $directories['root'].'/public/',
+                'public' => $directories['root'] . '/public/',
 
                 // vendor libraries
-                'vendor' => $directories['root'].'/vendor/',
+                'vendor' => $directories['root'] . '/vendor/',
 
                 // data directories
-                'runtime' => $directories['root'].'/runtime/',
-                'cache' => $directories['root'].'/runtime/cache/',
+                'runtime' => $directories['root'] . '/runtime/',
+                'cache' => $directories['root'] . '/runtime/cache/',
 
                 // application directories
-                'config' => $directories['app'].'/config/',
-                'resources' => $directories['app'].'/resources/',
+                'config' => $directories['app'] . '/config/',
+                'resources' => $directories['app'] . '/resources/',
             ],
-            $directories
+            $directories,
         );
     }
 }

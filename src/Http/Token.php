@@ -11,9 +11,8 @@ class Token implements TokenInterface
     public function __construct(
         private readonly string $id,
         private readonly array $payload,
-        private readonly ?\DateTimeInterface $expiresAt = null
-    ) {
-    }
+        private readonly ?\DateTimeInterface $expiresAt = null,
+    ) {}
 
     public function getID(): string
     {

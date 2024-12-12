@@ -10,29 +10,8 @@ class FakeSessionSection implements SessionSectionInterface
 {
     public function __construct(
         private readonly string $name,
-        private array $data
-    ) {
-    }
-
-    public function __get(string $name)
-    {
-        return $this->get($name);
-    }
-
-    public function __set(string $name, $value): void
-    {
-        $this->set($name, $value);
-    }
-
-    public function __isset(string $name)
-    {
-        return $this->has($name);
-    }
-
-    public function __unset(string $name): void
-    {
-        $this->delete($name);
-    }
+        private array $data,
+    ) {}
 
     public function getIterator(): \ArrayIterator
     {
@@ -104,5 +83,25 @@ class FakeSessionSection implements SessionSectionInterface
     public function clear(): void
     {
         $this->data = [];
+    }
+
+    public function __get(string $name)
+    {
+        return $this->get($name);
+    }
+
+    public function __set(string $name, $value): void
+    {
+        $this->set($name, $value);
+    }
+
+    public function __isset(string $name)
+    {
+        return $this->has($name);
+    }
+
+    public function __unset(string $name): void
+    {
+        $this->delete($name);
     }
 }

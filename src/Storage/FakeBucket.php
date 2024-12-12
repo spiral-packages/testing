@@ -17,18 +17,11 @@ class FakeBucket extends Bucket
     private array $moved = [];
     private array $visibility = [];
 
-    private function filterFiles(array $files, \Closure $callback): array
-    {
-        return \array_filter($files, static function (array $data) use ($callback) {
-            return $callback($data);
-        });
-    }
-
     public function assertExists(string $pathname): void
     {
         TestCase::assertTrue(
             $this->file($pathname)->exists(),
-            \sprintf('The expected [%s] files is not exist.', $pathname)
+            \sprintf('The expected [%s] files is not exist.', $pathname),
         );
     }
 
@@ -36,31 +29,31 @@ class FakeBucket extends Bucket
     {
         TestCase::assertFalse(
             $this->file($pathname)->exists(),
-            \sprintf('The unexpected [%s] files is exist.', $pathname)
+            \sprintf('The unexpected [%s] files is exist.', $pathname),
         );
     }
 
     public function assertCreated(string $pathname): void
     {
-        $files = $this->filterFiles($this->created, function (array $data) use($pathname) {
+        $files = $this->filterFiles($this->created, function (array $data) use ($pathname) {
             return $data['pathname'] === $pathname;
         });
 
         TestCase::assertTrue(
             \count($files) > 0,
-            \sprintf('The expected [%s] files was not created.', $pathname)
+            \sprintf('The expected [%s] files was not created.', $pathname),
         );
     }
 
     public function assertNotCreated(string $pathname): void
     {
-        $files = $this->filterFiles($this->created, function (array $data) use($pathname) {
+        $files = $this->filterFiles($this->created, function (array $data) use ($pathname) {
             return $data['pathname'] === $pathname;
         });
 
         TestCase::assertTrue(
             \count($files) === 0,
-            \sprintf('The expected [%s] files was created.', $pathname)
+            \sprintf('The expected [%s] files was created.', $pathname),
         );
     }
 
@@ -84,25 +77,25 @@ class FakeBucket extends Bucket
 
     public function assertVisibilityChanged(string $pathname): void
     {
-        $files = $this->filterFiles($this->visibility, function (array $data) use($pathname) {
+        $files = $this->filterFiles($this->visibility, function (array $data) use ($pathname) {
             return $data['pathname'] === $pathname;
         });
 
         TestCase::assertTrue(
             \count($files) > 0,
-            \sprintf('The expected [%s] files visibility was not changed.', $pathname)
+            \sprintf('The expected [%s] files visibility was not changed.', $pathname),
         );
     }
 
     public function assertVisibilityNotChanged(string $pathname): void
     {
-        $files = $this->filterFiles($this->visibility, function (array $data) use($pathname) {
+        $files = $this->filterFiles($this->visibility, function (array $data) use ($pathname) {
             return $data['pathname'] === $pathname;
         });
 
         TestCase::assertTrue(
             \count($files) === 0,
-            \sprintf('The expected [%s] files visibility was changed.', $pathname)
+            \sprintf('The expected [%s] files visibility was changed.', $pathname),
         );
     }
 
@@ -117,33 +110,33 @@ class FakeBucket extends Bucket
 
     public function assertCopied(string $pathname, string $destination): void
     {
-        $files = $this->filterFiles($this->copied, function (array $data) use($pathname, $destination) {
+        $files = $this->filterFiles($this->copied, function (array $data) use ($pathname, $destination) {
             return $data['pathname'] === $pathname && $data['destination'] === $destination;
         });
 
         TestCase::assertTrue(
             \count($files) > 0,
-            \sprintf('The expected [%s] files was not copied.', $pathname)
+            \sprintf('The expected [%s] files was not copied.', $pathname),
         );
     }
 
     public function assertNotCopied(string $pathname, string $destination): void
     {
-        $files = $this->filterFiles($this->copied, function (array $data) use($pathname, $destination) {
+        $files = $this->filterFiles($this->copied, function (array $data) use ($pathname, $destination) {
             return $data['pathname'] === $pathname && $data['destination'] === $destination;
         });
 
         TestCase::assertTrue(
             \count($files) === 0,
-            \sprintf('The expected [%s] files was copied.', $pathname)
+            \sprintf('The expected [%s] files was copied.', $pathname),
         );
     }
 
     public function copy(
         string $pathname,
         string $destination,
-        BucketInterface $storage = null,
-        array $config = []
+        ?BucketInterface $storage = null,
+        array $config = [],
     ): FileInterface {
         $file = parent::copy($pathname, $destination, $storage, $config);
 
@@ -154,33 +147,33 @@ class FakeBucket extends Bucket
 
     public function assertMoved(string $pathname, string $destination): void
     {
-        $files = $this->filterFiles($this->moved, function (array $data) use($pathname, $destination) {
+        $files = $this->filterFiles($this->moved, function (array $data) use ($pathname, $destination) {
             return $data['pathname'] === $pathname && $data['destination'] === $destination;
         });
 
         TestCase::assertTrue(
             \count($files) > 0,
-            \sprintf('The expected [%s] files was not moved.', $pathname)
+            \sprintf('The expected [%s] files was not moved.', $pathname),
         );
     }
 
     public function assertNotMoved(string $pathname, string $destination): void
     {
-        $files = $this->filterFiles($this->moved, function (array $data) use($pathname, $destination) {
+        $files = $this->filterFiles($this->moved, function (array $data) use ($pathname, $destination) {
             return $data['pathname'] === $pathname && $data['destination'] === $destination;
         });
 
         TestCase::assertTrue(
             \count($files) === 0,
-            \sprintf('The expected [%s] files was moved.', $pathname)
+            \sprintf('The expected [%s] files was moved.', $pathname),
         );
     }
 
     public function move(
         string $pathname,
         string $destination,
-        BucketInterface $storage = null,
-        array $config = []
+        ?BucketInterface $storage = null,
+        array $config = [],
     ): FileInterface {
         $file = parent::move($pathname, $destination, $storage, $config);
 
@@ -191,25 +184,25 @@ class FakeBucket extends Bucket
 
     public function assertDeleted(string $pathname): void
     {
-        $files = $this->filterFiles($this->deleted, function (array $data) use($pathname) {
+        $files = $this->filterFiles($this->deleted, function (array $data) use ($pathname) {
             return $data['pathname'] === $pathname;
         });
 
         TestCase::assertTrue(
             \count($files) > 0,
-            \sprintf('The expected [%s] files was not deleted.', $pathname)
+            \sprintf('The expected [%s] files was not deleted.', $pathname),
         );
     }
 
     public function assertNotDeleted(string $pathname): void
     {
-        $files = $this->filterFiles($this->deleted, function (array $data) use($pathname) {
+        $files = $this->filterFiles($this->deleted, function (array $data) use ($pathname) {
             return $data['pathname'] === $pathname;
         });
 
         TestCase::assertTrue(
             \count($files) === 0,
-            \sprintf('The expected [%s] files was deleted.', $pathname)
+            \sprintf('The expected [%s] files was deleted.', $pathname),
         );
     }
 
@@ -218,5 +211,12 @@ class FakeBucket extends Bucket
         parent::delete($pathname, $clean);
 
         $this->deleted[] = \compact('pathname', 'clean');
+    }
+
+    private function filterFiles(array $files, \Closure $callback): array
+    {
+        return \array_filter($files, static function (array $data) use ($callback) {
+            return $callback($data);
+        });
     }
 }

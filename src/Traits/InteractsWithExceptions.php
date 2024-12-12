@@ -17,13 +17,9 @@ trait InteractsWithExceptions
         $this->getContainer()->bind(
             ExceptionHandlerInterface::class,
             new class implements ExceptionHandlerInterface {
-                public function register(): void
-                {
-                }
+                public function register(): void {}
 
-                public function handleGlobalException(\Throwable $e): void
-                {
-                }
+                public function handleGlobalException(\Throwable $e): void {}
 
                 public function getRenderer(?string $format = null): ?ExceptionRendererInterface
                 {
@@ -33,7 +29,7 @@ trait InteractsWithExceptions
                 public function render(
                     \Throwable $exception,
                     ?Verbosity $verbosity = Verbosity::BASIC,
-                    string $format = null,
+                    ?string $format = null,
                 ): string {
                     throw $exception;
                 }
@@ -43,11 +39,11 @@ trait InteractsWithExceptions
                     return true;
                 }
 
-                public function report(\Throwable $exception,): void
+                public function report(\Throwable $exception): void
                 {
                     throw $exception;
                 }
-            }
+            },
         );
     }
 

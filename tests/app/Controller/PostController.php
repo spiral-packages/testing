@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Spiral\Testing\Tests\App\Controller;
 
-use Spiral\Http\Request\InputManager;
 use Spiral\Testing\Tests\App\Repositories\PostRepositoryInterface;
 
 final class PostController

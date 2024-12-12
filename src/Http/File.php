@@ -20,12 +20,11 @@ class File extends UploadedFile
     public ?string $fakeMimeType = null;
 
     /**
-     * @param string $filename
      * @param resource $tempFile
      */
     public function __construct(
         private string $filename,
-        private $tempFile
+        private $tempFile,
     ) {
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
         $mimeType = (new MimeTypes())->getMimeTypes($extension)[0] ?? 'application/octet-stream';
@@ -35,7 +34,7 @@ class File extends UploadedFile
             fstat($tempFile)['size'],
             UPLOAD_ERR_OK,
             $filename,
-            $mimeType
+            $mimeType,
         );
     }
 

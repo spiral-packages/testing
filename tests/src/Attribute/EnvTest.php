@@ -13,7 +13,7 @@ final class EnvTest extends TestCase
 {
     public const ENV = [
         'FOO' => 'BAR',
-        'BAZ' => 'QUX'
+        'BAZ' => 'QUX',
     ];
 
     public function testDefaultEnv(): void

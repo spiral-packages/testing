@@ -22,7 +22,7 @@ trait InteractsWithQueue
         $container->removeBinding(QueueConnectionProviderInterface::class);
         $container->bindSingleton(
             QueueConnectionProviderInterface::class,
-            $manager = $container->get(FakeQueueManager::class)
+            $manager = $container->get(FakeQueueManager::class),
         );
 
         return $manager;

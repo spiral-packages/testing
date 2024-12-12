@@ -31,15 +31,14 @@ final class InteractsWithQueueTest extends TestCase
         self::assertSame($queue, $queue2);
     }
 
-    private function getSomeService(Container $container):object
+    private function getSomeService(Container $container): object
     {
-        return new class ($container) {
+        return new class($container) {
             use InteractsWithQueue;
 
             public function __construct(
-                private readonly Container $container
-            )  {
-            }
+                private readonly Container $container,
+            ) {}
 
             public function getContainer(): Container
             {

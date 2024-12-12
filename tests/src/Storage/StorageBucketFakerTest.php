@@ -10,13 +10,6 @@ final class StorageBucketFakerTest extends TestCase
 {
     private \Spiral\Storage\StorageInterface $storage;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->storage = $this->fakeStorage();
-    }
-
     public function testWrite(): void
     {
         if (! function_exists('imagecreatetruecolor')) {
@@ -40,5 +33,12 @@ final class StorageBucketFakerTest extends TestCase
 
         $public->assertExists('file.txt');
         $public->assertNotExist('image.jpg');
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->storage = $this->fakeStorage();
     }
 }
