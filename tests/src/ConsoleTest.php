@@ -13,7 +13,6 @@ final class ConsoleTest extends TestCase
         $this->assertCommandRegistered('foo');
     }
 
-
     public function testNotRegisteredCommandShouldThrowAnException(): void
     {
         $this->expectException(ExpectationFailedException::class);

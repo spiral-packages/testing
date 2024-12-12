@@ -1,5 +1,3 @@
-# editorconfig.org
-
 root = true
 
 [*]
@@ -10,5 +8,14 @@ indent_style = space
 indent_size = 4
 trim_trailing_whitespace = true
 
-[*.json]
+[*.{yml, yaml, sh, conf, neon*}]
 indent_size = 2
+
+[*.http]
+end_of_line = crlf
+
+[*.md]
+trim_trailing_whitespace = false
+
+[Makefile]
+indent_style = tab

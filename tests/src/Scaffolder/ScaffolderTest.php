@@ -87,7 +87,7 @@ PHP,
             ],
             expectedStrings: [
                 "#[Option(description: 'Argument description')]",
-                'private bool $foo;'
+                'private bool $foo;',
             ],
         );
     }
@@ -99,7 +99,7 @@ PHP,
         $this->assertScaffolderCommandContains(
             'create:command',
             [
-                'name' => 'TestCommand'
+                'name' => 'TestCommand',
             ],
             expectedStrings: ['final class TestCommand extends Command'],
         );

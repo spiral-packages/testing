@@ -12,9 +12,8 @@ use Spiral\Testing\Tests\App\Event\SomeEvent;
 class EventDispatcherController
 {
     public function __construct(
-        private readonly EventDispatcherInterface $eventDispatcher
-    ) {
-    }
+        private readonly EventDispatcherInterface $eventDispatcher,
+    ) {}
 
     #[Route('/dispatch/some', 'dispatch.some')]
     public function dispatchSome(): string

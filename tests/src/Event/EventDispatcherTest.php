@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Spiral\Testing\Tests\Event;
 
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\ExpectationFailedException;
 use Spiral\Testing\Events\FakeEventDispatcher;
 use Spiral\Testing\Tests\App\Event\AnotherEvent;
@@ -18,14 +17,6 @@ final class EventDispatcherTest extends TestCase
 {
     private \Spiral\Testing\Http\FakeHttp $http;
     private \Spiral\Testing\Events\FakeEventDispatcher $eventDispatcher;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->eventDispatcher = $this->fakeEventDispatcher();
-        $this->http = $this->fakeHttp();
-    }
 
     public function testWithoutDispatcher(): void
     {
@@ -110,5 +101,13 @@ final class EventDispatcherTest extends TestCase
         $this->expectExceptionMessage('Event [Spiral\Testing\Tests\App\Event\SomeEvent] does not have the [Spiral\Testing\Tests\App\Listener\AnotherListener] listener attached to it.');
 
         $this->eventDispatcher->assertListening(SomeEvent::class, AnotherListener::class);
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->eventDispatcher = $this->fakeEventDispatcher();
+        $this->http = $this->fakeHttp();
     }
 }

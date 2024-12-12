@@ -14,12 +14,10 @@ final class FakeTokenStorage implements TokenStorageInterface
         return new Token($id, []);
     }
 
-    public function create(array $payload, \DateTimeInterface $expiresAt = null): TokenInterface
+    public function create(array $payload, ?\DateTimeInterface $expiresAt = null): TokenInterface
     {
         return new Token(uniqid(), $payload, $expiresAt);
     }
 
-    public function delete(TokenInterface $token): void
-    {
-    }
+    public function delete(TokenInterface $token): void {}
 }

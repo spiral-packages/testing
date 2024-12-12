@@ -7,7 +7,6 @@ namespace Spiral\Testing\Tests\App\Event;
 class SomeEvent
 {
     public function __construct(
-        public readonly int $someParam
-    ) {
-    }
+        public readonly int $someParam,
+    ) {}
 }

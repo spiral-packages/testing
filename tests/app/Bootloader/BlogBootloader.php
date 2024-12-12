@@ -14,35 +14,32 @@ use Spiral\Testing\Tests\App\Services\BlogServiceInterface;
 final class BlogBootloader extends Bootloader
 {
     protected const BINDINGS = [
-        BlogServiceInterface::class => BlogService::class
+        BlogServiceInterface::class => BlogService::class,
     ];
-
     protected const SINGLETONS = [
-        PostRepositoryInterface::class => [self::class, 'initPostRepository']
+        PostRepositoryInterface::class => [self::class, 'initPostRepository'],
     ];
 
     /**
      * The configuration file should be modified by an attribute BEFORE it's used in the boot method
      */
-    public function boot(StorageConfig $config): void
-    {
-    }
+    public function boot(StorageConfig $config): void {}
 
     protected function initPostRepository(): PostRepositoryInterface
     {
         return new ArrayPostRepository([
             [
                 'title' => 'foo',
-                'text' => 'bar'
+                'text' => 'bar',
             ],
             [
                 'title' => 'foo1',
-                'text' => 'bar1'
+                'text' => 'bar1',
             ],
             [
                 'title' => 'foo2',
-                'text' => 'bar2'
-            ]
+                'text' => 'bar2',
+            ],
         ]);
     }
 }

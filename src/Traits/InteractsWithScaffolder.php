@@ -27,7 +27,8 @@ trait InteractsWithScaffolder
                 $root = $this->getDirectoryByAlias('root');
                 $this->assertSame(
                     \str_replace($root, '', $expectedFilename),
-                    \str_replace($root, '', $filename), 'Generated filename is not the same with expected.'
+                    \str_replace($root, '', $filename),
+                    'Generated filename is not the same with expected.',
                 );
             }
 
@@ -58,7 +59,8 @@ trait InteractsWithScaffolder
                 $root = $this->getDirectoryByAlias('root');
                 $this->assertSame(
                     \str_replace($root, '', $expectedFilename),
-                    \str_replace($root, '', $filename), 'Generated filename is not the same with expected.'
+                    \str_replace($root, '', $filename),
+                    'Generated filename is not the same with expected.',
                 );
             }
 

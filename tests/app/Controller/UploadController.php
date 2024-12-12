@@ -17,7 +17,7 @@ final class UploadController
 
         $storage->bucket('uploads')->write(
             $image->getClientFilename(),
-            $image->getStream()
+            $image->getStream(),
         );
 
         return $image->getClientFilename();

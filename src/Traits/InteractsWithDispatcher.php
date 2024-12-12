@@ -16,7 +16,7 @@ trait InteractsWithDispatcher
     {
         $this->assertTrue(
             $this->getContainer()->invoke([$dispatcher, 'canServe']),
-            \sprintf('Dispatcher [%s] can not be served.', $dispatcher)
+            \sprintf('Dispatcher [%s] can not be served.', $dispatcher),
         );
     }
 
@@ -27,7 +27,7 @@ trait InteractsWithDispatcher
     {
         $this->assertFalse(
             $this->getContainer()->invoke([$dispatcher, 'canServe']),
-            \sprintf('Dispatcher [%s] can be served.', $dispatcher)
+            \sprintf('Dispatcher [%s] can be served.', $dispatcher),
         );
     }
 
@@ -56,7 +56,7 @@ trait InteractsWithDispatcher
         $this->assertContains(
             $dispatcher,
             $this->getRegisteredDispatchers(),
-            \sprintf('Dispatcher [%s] was not loaded.', $dispatcher)
+            \sprintf('Dispatcher [%s] was not loaded.', $dispatcher),
         );
     }
 
@@ -68,7 +68,7 @@ trait InteractsWithDispatcher
         $this->assertNotContains(
             $dispatcher,
             $this->getRegisteredDispatchers(),
-            \sprintf('Dispatcher [%s] was loaded.', $dispatcher)
+            \sprintf('Dispatcher [%s] was loaded.', $dispatcher),
         );
     }
 

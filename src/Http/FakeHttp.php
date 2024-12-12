@@ -32,7 +32,6 @@ class FakeHttp
     private array $defaultServerVariables = [];
     private array $defaultHeaders = [];
     private array $defaultCookies = [];
-
     private ?object $actor = null;
     private ?SessionInterface $session = null;
     private BinderInterface $binder;
@@ -47,7 +46,7 @@ class FakeHttp
     ) {
         $this->binder = $container
             ->get(InvokerInterface::class)
-            ->invoke(static fn (#[Proxy] BinderInterface $binder): BinderInterface => $binder);
+            ->invoke(static fn(#[Proxy] BinderInterface $binder): BinderInterface => $binder);
     }
 
     public function withActor(object $actor): self

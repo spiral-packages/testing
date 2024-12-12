@@ -16,7 +16,7 @@ final class FakeSession implements SessionInterface
         private array $data,
         private readonly string $clientSignature,
         private readonly int $lifetime = 3600,
-         ?string $id = null
+        ?string $id = null,
     ) {
         if (! empty($id) && $this->validID($id)) {
             $this->id = $id;
@@ -40,7 +40,7 @@ final class FakeSession implements SessionInterface
             $this->data['_CREATED'] = time();
         }
 
-        $this->id = 'session-'.time();
+        $this->id = 'session-' . time();
 
         $this->started = true;
     }
@@ -55,7 +55,7 @@ final class FakeSession implements SessionInterface
         $this->resume();
 
         $this->data['_CREATED'] = time();
-        $this->id = 'session-'.time();
+        $this->id = 'session-' . time();
 
         $this->resume();
 
@@ -98,10 +98,11 @@ final class FakeSession implements SessionInterface
         return $this->commit();
     }
 
-    public function getSection(string $name = null): SessionSectionInterface
+    public function getSection(?string $name = null): SessionSectionInterface
     {
         return new FakeSessionSection(
-            $name ?? '_DEFAULT', $this->data[$name] ?? []
+            $name ?? '_DEFAULT',
+            $this->data[$name] ?? [],
         );
     }
 

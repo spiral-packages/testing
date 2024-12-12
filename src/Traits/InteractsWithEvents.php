@@ -16,8 +16,8 @@ trait InteractsWithEvents
             EventDispatcherInterface::class,
             $dispatcher = $this->getContainer()->make(
                 FakeEventDispatcher::class,
-                ['eventsToFake' => $eventsToFake]
-            )
+                ['eventsToFake' => $eventsToFake],
+            ),
         );
 
         return $dispatcher;

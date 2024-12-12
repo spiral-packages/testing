@@ -17,9 +17,8 @@ class FakeQueueManager implements QueueConnectionProviderInterface
 
     public function __construct(
         private readonly Container $container,
-        private readonly QueueConfig $config
-    ) {
-    }
+        private readonly QueueConfig $config,
+    ) {}
 
     public function getConnection(?string $name = null): FakeQueue
     {
@@ -36,15 +35,15 @@ class FakeQueueManager implements QueueConnectionProviderInterface
         return $this->connections[$name] = $this->container->make(FakeQueue::class, $config);
     }
 
-    private function getDefaultDriver(): string
-    {
-        return $this->config->getDefaultDriver();
-    }
-
     public function clearAll(): void
     {
         foreach ($this->connections as $connection) {
             $connection->clear();
         }
+    }
+
+    private function getDefaultDriver(): string
+    {
+        return $this->config->getDefaultDriver();
     }
 }
