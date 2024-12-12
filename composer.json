@@ -70,11 +70,12 @@
         "ext-gd": "Required to use generate fake image files"
     },
     "require-dev": {
+        "spiral-packages/league-event": "^1.0.1",
+        "spiral/code-style": "^2.2",
         "spiral/dumper": "^3.3",
         "spiral/framework": "^3.14.8",
-        "spiral/roadrunner-bridge": "^2.2 || ^3.7 || ^4.0",
-        "spiral-packages/league-event": "^1.0.1",
         "spiral/nyholm-bridge": "^1.3",
+        "spiral/roadrunner-bridge": "^2.2 || ^3.7 || ^4.0",
         "vimeo/psalm": "^5.9"
     },
     "autoload": {
@@ -83,7 +84,6 @@
         }
     },
     "autoload-dev": {
-        "sort-packages": true,
         "psr-4": {
             "Spiral\\Testing\\Tests\\App\\": "tests/app",
             "Spiral\\Testing\\Tests\\": "tests/src"
@@ -92,8 +92,16 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
+        "sort-packages": true,
         "allow-plugins": {
             "spiral/composer-publish-plugin": false
         }
+    },
+    "scripts": {
+        "cs:diff": "php-cs-fixer fix --dry-run -v --diff",
+        "cs:fix": "php-cs-fixer fix -v",
+        "psalm": "psalm",
+        "psalm:baseline": "psalm --set-baseline=psalm-baseline.xml",
+        "test": "phpunit --color=always"
     }
 }
