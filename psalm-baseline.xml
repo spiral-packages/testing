@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
+  <file src="src/Events/FakeEventDispatcher.php">
+    <InvalidNullableReturnType>
+      <code><![CDATA[?object]]></code>
+    </InvalidNullableReturnType>
+    <MixedArgument>
+      <code><![CDATA[$listenerClosure]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$actualListener]]></code>
+      <code><![CDATA[$listenerClosure]]></code>
+    </MixedAssignment>
+    <MixedInferredReturnType>
+      <code><![CDATA[bool]]></code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement>
+      <code><![CDATA[$callback($event)]]></code>
+      <code><![CDATA[$callback($event)]]></code>
+    </MixedReturnStatement>
+    <NullableReturnStatement>
+      <code><![CDATA[$this->eventDispatcher?->dispatch($event)]]></code>
+    </NullableReturnStatement>
+    <TooManyArguments>
+      <code><![CDATA[$callback($event)]]></code>
+    </TooManyArguments>
+  </file>
+  <file src="src/Http/FakeHttp.php">
+    <MissingClosureReturnType>
+      <code><![CDATA[function () use ($request) {]]></code>
+    </MissingClosureReturnType>
+    <MissingParamType>
+      <code><![CDATA[$data]]></code>
+      <code><![CDATA[$data]]></code>
+      <code><![CDATA[$data]]></code>
+      <code><![CDATA[$data]]></code>
+      <code><![CDATA[$data]]></code>
+      <code><![CDATA[$data]]></code>
+      <code><![CDATA[$value]]></code>
+    </MissingParamType>
+    <MixedArgument>
+      <code><![CDATA[($this->scope)($handler, $bindings)]]></code>
+      <code><![CDATA[static::AUTH_TOKEN_HEADER_KEY]]></code>
+      <code><![CDATA[static::AUTH_TOKEN_HEADER_KEY]]></code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$files]]></code>
+      <code><![CDATA[$files]]></code>
+      <code><![CDATA[$files]]></code>
+      <code><![CDATA[$files]]></code>
+      <code><![CDATA[$files]]></code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment>
+      <code><![CDATA[$this->binder]]></code>
+      <code><![CDATA[$v]]></code>
+    </MixedAssignment>
+    <MixedInferredReturnType>
+      <code><![CDATA[Http]]></code>
+    </MixedInferredReturnType>
+    <MixedMethodCall>
+      <code><![CDATA[invoke]]></code>
+    </MixedMethodCall>
+    <MixedReturnStatement>
+      <code><![CDATA[$this->container->get(Http::class)]]></code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/Http/File.php">
+    <ConstructorSignatureMismatch>
+      <code><![CDATA[$filename]]></code>
+    </ConstructorSignatureMismatch>
+    <ImplementedParamTypeMismatch>
+      <code><![CDATA[$tempFile]]></code>
+    </ImplementedParamTypeMismatch>
+    <InvalidExtendClass>
+      <code><![CDATA[UploadedFile]]></code>
+    </InvalidExtendClass>
+    <MethodSignatureMismatch>
+      <code><![CDATA[public function __construct(]]></code>
+      <code><![CDATA[public function __construct(]]></code>
+      <code><![CDATA[public function getClientMediaType(): ?string]]></code>
+      <code><![CDATA[public function getSize(): int]]></code>
+    </MethodSignatureMismatch>
+    <MissingImmutableAnnotation>
+      <code><![CDATA[public function getClientMediaType(): ?string]]></code>
+      <code><![CDATA[public function getSize(): int]]></code>
+    </MissingImmutableAnnotation>
+    <MoreSpecificImplementedParamType>
+      <code><![CDATA[$filename]]></code>
+    </MoreSpecificImplementedParamType>
+    <ParamNameMismatch>
+      <code><![CDATA[$filename]]></code>
+      <code><![CDATA[$tempFile]]></code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Http/FileFactory.php">
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$mimeType]]></code>
+      <code><![CDATA[$mimeType]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Http/TestResponse.php">
+    <MixedArgument>
+      <code><![CDATA[$line]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$line]]></code>
+    </MixedAssignment>
+    <MixedInferredReturnType>
+      <code><![CDATA[array]]></code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement>
+      <code><![CDATA[\json_decode(
+            (string) $this->response->getBody(),
+            true,
+        )]]></code>
+    </MixedReturnStatement>
+    <MixedReturnTypeCoercion>
+      <code><![CDATA[$this->cookies]]></code>
+      <code><![CDATA[array<non-empty-string, string>]]></code>
+    </MixedReturnTypeCoercion>
+    <PossiblyFalseArgument>
+      <code><![CDATA[strpos($cookie[1], ';')]]></code>
+    </PossiblyFalseArgument>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$value]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Mailer/FakeMailer.php">
+    <MixedReturnTypeCoercion>
+      <code><![CDATA[$messages]]></code>
+      <code><![CDATA[$messages]]></code>
+      <code><![CDATA[MessageInterface[]]]></code>
+      <code><![CDATA[MessageInterface[]]]></code>
+    </MixedReturnTypeCoercion>
+  </file>
+  <file src="src/Queue/FakeQueue.php">
+    <LessSpecificReturnStatement>
+      <code><![CDATA[\array_filter($jobs, static function (array $data) use ($callback) {
+            return $callback($data);
+        })]]></code>
+    </LessSpecificReturnStatement>
+    <MixedMethodCall>
+      <code><![CDATA[getQueue]]></code>
+    </MixedMethodCall>
+    <MoreSpecificReturnType>
+      <code><![CDATA[list<TJob>]]></code>
+    </MoreSpecificReturnType>
+    <PropertyTypeCoercion>
+      <code><![CDATA[$this->jobs]]></code>
+    </PropertyTypeCoercion>
+  </file>
+  <file src="src/Queue/FakeQueueManager.php">
+    <MixedArgument>
+      <code><![CDATA[$name]]></code>
+    </MixedArgument>
+    <MixedArrayOffset>
+      <code><![CDATA[$this->connections[$name]]]></code>
+    </MixedArrayOffset>
+    <MixedArrayTypeCoercion>
+      <code><![CDATA[$this->connections[$name]]]></code>
+    </MixedArrayTypeCoercion>
+    <MixedAssignment>
+      <code><![CDATA[$name]]></code>
+    </MixedAssignment>
+    <MixedInferredReturnType>
+      <code><![CDATA[FakeQueue]]></code>
+    </MixedInferredReturnType>
+    <MixedPropertyTypeCoercion>
+      <code><![CDATA[$this->connections]]></code>
+    </MixedPropertyTypeCoercion>
+    <MixedReturnStatement>
+      <code><![CDATA[$this->connections[$name] = $this->container->make(FakeQueue::class, $config)]]></code>
+    </MixedReturnStatement>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$name]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Session/FakeSession.php">
+    <MixedArgument>
+      <code><![CDATA[$this->data[$name] ?? []]]></code>
+    </MixedArgument>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($id)]]></code>
+      <code><![CDATA[empty($this->id)]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Session/FakeSessionSection.php">
+    <InvalidReturnType>
+      <code><![CDATA[self]]></code>
+    </InvalidReturnType>
+    <MethodSignatureMustProvideReturnType>
+      <code><![CDATA[offsetGet]]></code>
+      <code><![CDATA[offsetSet]]></code>
+      <code><![CDATA[offsetUnset]]></code>
+    </MethodSignatureMustProvideReturnType>
+    <MissingParamType>
+      <code><![CDATA[$default]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+    </MissingParamType>
+    <MixedArgument>
+      <code><![CDATA[$offset]]></code>
+      <code><![CDATA[$offset]]></code>
+      <code><![CDATA[$offset]]></code>
+      <code><![CDATA[$offset]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$this->data[$this->name][$name]]]></code>
+    </MixedArrayAccess>
+    <MixedAssignment>
+      <code><![CDATA[$value]]></code>
+    </MixedAssignment>
+    <MixedReturnStatement>
+      <code><![CDATA[$this->get($offset)]]></code>
+    </MixedReturnStatement>
+    <PossiblyNullArgument>
+      <code><![CDATA[$offset]]></code>
+    </PossiblyNullArgument>
+  </file>
+  <file src="src/Storage/FakeBucket.php">
+    <MissingClosureReturnType>
+      <code><![CDATA[static function (array $data) use ($callback) {]]></code>
+    </MissingClosureReturnType>
+    <ParamNameMismatch>
+      <code><![CDATA[$pathname]]></code>
+      <code><![CDATA[$pathname]]></code>
+      <code><![CDATA[$pathname]]></code>
+      <code><![CDATA[$pathname]]></code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Storage/FakeBucketFactory.php">
+    <PossiblyNullOperand>
+      <code><![CDATA[$name]]></code>
+    </PossiblyNullOperand>
+  </file>
+  <file src="src/TestApp.php">
+    <InvalidClassConstantType>
+      <code><![CDATA[SYSTEM]]></code>
+    </InvalidClassConstantType>
+    <MixedArgument>
+      <code><![CDATA[static::APP]]></code>
+    </MixedArgument>
+    <MixedReturnTypeCoercion>
+      <code><![CDATA[$this->bootloaders !== null
+            ? $this->bootloaders
+            : parent::defineBootloaders()]]></code>
+      <code><![CDATA[array]]></code>
+    </MixedReturnTypeCoercion>
+    <MoreSpecificImplementedParamType>
+      <code><![CDATA[$directories]]></code>
+    </MoreSpecificImplementedParamType>
+  </file>
+  <file src="src/TestCase.php">
+    <InternalMethod>
+      <code><![CDATA[name]]></code>
+      <code><![CDATA[parent::runTest()]]></code>
+      <code><![CDATA[parent::runTest()]]></code>
+    </InternalMethod>
+    <InvalidArgument>
+      <code><![CDATA[$this->defineBootloaders()]]></code>
+    </InvalidArgument>
+    <InvalidNullableReturnType>
+      <code><![CDATA[TestableKernelInterface]]></code>
+    </InvalidNullableReturnType>
+    <InvalidOperand>
+      <code><![CDATA[static::ENV]]></code>
+    </InvalidOperand>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[AbstractKernel|TestableKernelInterface]]></code>
+    </MismatchingDocblockReturnType>
+    <MixedArgument>
+      <code><![CDATA[$methodName]]></code>
+      <code><![CDATA[$scope]]></code>
+      <code><![CDATA[$value]]></code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$env]]></code>
+      <code><![CDATA[$isLast ? $bindings : []]]></code>
+      <code><![CDATA[$key]]></code>
+      <code><![CDATA[$key]]></code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment>
+      <code><![CDATA[$methodName]]></code>
+      <code><![CDATA[$result]]></code>
+      <code><![CDATA[$scope]]></code>
+      <code><![CDATA[$value]]></code>
+    </MixedAssignment>
+    <MixedInferredReturnType>
+      <code><![CDATA[AbstractKernel|TestableKernelInterface]]></code>
+    </MixedInferredReturnType>
+    <NullableReturnStatement>
+      <code><![CDATA[$this->app]]></code>
+    </NullableReturnStatement>
+    <PossiblyInvalidPropertyAssignmentValue>
+      <code><![CDATA[$this->makeApp($env, $container)]]></code>
+    </PossiblyInvalidPropertyAssignmentValue>
+    <PossiblyUndefinedMethod>
+      <code><![CDATA[getContainer]]></code>
+    </PossiblyUndefinedMethod>
+    <UndefinedMethod>
+      <code><![CDATA[getName]]></code>
+    </UndefinedMethod>
+  </file>
+  <file src="src/Traits/InteractsWithConfig.php">
+    <MixedAssignment>
+      <code><![CDATA[$fragment]]></code>
+    </MixedAssignment>
+    <PossiblyUndefinedArrayOffset>
+      <code><![CDATA[$key]]></code>
+    </PossiblyUndefinedArrayOffset>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[modify]]></code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Traits/InteractsWithConsole.php">
+    <ArgumentTypeCoercion>
+      <code><![CDATA[$verbosityLevel ?? $this->defaultVerbosityLevel]]></code>
+    </ArgumentTypeCoercion>
+    <MixedInferredReturnType>
+      <code><![CDATA[string]]></code>
+    </MixedInferredReturnType>
+    <PossiblyUndefinedMethod>
+      <code><![CDATA[fetch]]></code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="src/Traits/InteractsWithCore.php">
+    <ArgumentTypeCoercion>
+      <code><![CDATA[$class]]></code>
+    </ArgumentTypeCoercion>
+    <InvalidArgument>
+      <code><![CDATA[$this->getRegisteredBootloaders()]]></code>
+      <code><![CDATA[$this->getRegisteredBootloaders()]]></code>
+    </InvalidArgument>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[class-string<BootloaderInterface>]]></code>
+    </MismatchingDocblockReturnType>
+    <MixedArgument>
+      <code><![CDATA[$currentValue]]></code>
+      <code><![CDATA[$realObject]]></code>
+      <code><![CDATA[$value]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$currentValue]]></code>
+      <code><![CDATA[$realObject]]></code>
+      <code><![CDATA[$realObject]]></code>
+    </MixedAssignment>
+    <MixedInferredReturnType>
+      <code><![CDATA[\Spiral\Testing\TestCase|InteractsWithCore]]></code>
+      <code><![CDATA[class-string<BootloaderInterface>]]></code>
+    </MixedInferredReturnType>
+    <MoreSpecificReturnType>
+      <code><![CDATA[array<non-empty-string, mixed>]]></code>
+    </MoreSpecificReturnType>
+    <UndefinedDocblockClass>
+      <code><![CDATA[\Spiral\Testing\TestCase|InteractsWithCore]]></code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Traits/InteractsWithDispatcher.php">
+    <MissingClosureParamType>
+      <code><![CDATA[$dispatcher]]></code>
+    </MissingClosureParamType>
+    <MixedArgument>
+      <code><![CDATA[$this->getContainer()->get(KernelInterface::class)->getRegisteredDispatchers()]]></code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$bindings]]></code>
+    </MixedArgumentTypeCoercion>
+    <MixedInferredReturnType>
+      <code><![CDATA[string]]></code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement>
+      <code><![CDATA[\is_object($dispatcher) ? $dispatcher::class : $dispatcher]]></code>
+      <code><![CDATA[\is_object($dispatcher) ? $dispatcher::class : $dispatcher]]></code>
+    </MixedReturnStatement>
+    <MoreSpecificReturnType>
+      <code><![CDATA[class-string<DispatcherInterface>[]]]></code>
+    </MoreSpecificReturnType>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[getRegisteredDispatchers]]></code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Traits/InteractsWithEvents.php">
+    <MixedArgument>
+      <code><![CDATA[$dispatcher = $this->getContainer()->make(
+                FakeEventDispatcher::class,
+                ['eventsToFake' => $eventsToFake],
+            )]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$dispatcher]]></code>
+    </MixedAssignment>
+    <MixedInferredReturnType>
+      <code><![CDATA[FakeEventDispatcher]]></code>
+    </MixedInferredReturnType>
+  </file>
+  <file src="src/Traits/InteractsWithFileSystem.php">
+    <ArgumentTypeCoercion>
+      <code><![CDATA[$name]]></code>
+      <code><![CDATA[$name]]></code>
+    </ArgumentTypeCoercion>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$path]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Traits/InteractsWithHttp.php">
+    <MissingClosureReturnType>
+      <code><![CDATA[function (\Closure $closure, array $bindings = []) {]]></code>
+    </MissingClosureReturnType>
+  </file>
+  <file src="src/Traits/InteractsWithScaffolder.php">
+    <MixedArgument>
+      <code><![CDATA[$expected]]></code>
+      <code><![CDATA[$expected]]></code>
+      <code><![CDATA[$expected]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$expected]]></code>
+      <code><![CDATA[$expected]]></code>
+      <code><![CDATA[$expected]]></code>
+    </MixedAssignment>
+    <PossiblyUndefinedMethod>
+      <code><![CDATA[withArgs]]></code>
+    </PossiblyUndefinedMethod>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$expectedFilename]]></code>
+      <code><![CDATA[$expectedFilename]]></code>
+    </RiskyTruthyFalsyComparison>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[andReturnFalse]]></code>
+    </UndefinedInterfaceMethod>
+    <UndefinedMagicMethod>
+      <code><![CDATA[andReturnFalse]]></code>
+    </UndefinedMagicMethod>
+  </file>
+  <file src="src/Traits/InteractsWithStorage.php">
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[add]]></code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Traits/InteractsWithTranslator.php">
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[setLocale]]></code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Traits/InteractsWithViews.php">
+    <MixedArgument>
+      <code><![CDATA[$string]]></code>
+      <code><![CDATA[$string]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$string]]></code>
+      <code><![CDATA[$string]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Traits/TestableKernel.php">
+    <DocblockTypeContradiction>
+      <code><![CDATA[\is_object($dispatcher)]]></code>
+    </DocblockTypeContradiction>
+    <ImplementedReturnTypeMismatch>
+      <code><![CDATA[array<class-string<DispatcherInterface>>]]></code>
+    </ImplementedReturnTypeMismatch>
+    <MixedInferredReturnType>
+      <code><![CDATA[string]]></code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement>
+      <code><![CDATA[\is_object($dispatcher)
+            ? $dispatcher::class
+            : $dispatcher]]></code>
+      <code><![CDATA[\is_object($dispatcher)
+            ? $dispatcher::class
+            : $dispatcher]]></code>
+    </MixedReturnStatement>
+    <MoreSpecificReturnType>
+      <code><![CDATA[array<class-string<DispatcherInterface>>]]></code>
+    </MoreSpecificReturnType>
+  </file>
+</files>

@@ -9,7 +9,7 @@ final class FileFactory
     /**
      * Create a new fake file.
      */
-    public function createFile(string $filename, ?int $kilobytes = null, string $mimeType = null): File
+    public function createFile(string $filename, ?int $kilobytes = null, ?string $mimeType = null): File
     {
         $file = new File($filename, tmpfile());
 
@@ -27,7 +27,7 @@ final class FileFactory
     /**
      * Create a new fake file with given content.
      */
-    public function createFileWithContent(string $filename, string $content, string $mimeType = null): File
+    public function createFileWithContent(string $filename, string $content, ?string $mimeType = null): File
     {
         $tmpFile = tmpfile();
         fwrite($tmpFile, $content);

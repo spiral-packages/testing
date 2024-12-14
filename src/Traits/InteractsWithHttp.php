@@ -21,7 +21,7 @@ trait InteractsWithHttp
             'fileFactory' => $this->getFileFactory(),
             'scope' => function (\Closure $closure, array $bindings = []) {
                 return self::runScopes(['http'], $closure, $this->getContainer(), $bindings);
-            }
+            },
         ]);
     }
 }

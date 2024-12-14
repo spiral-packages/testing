@@ -19,7 +19,7 @@ trait InteractsWithCore
         $this->assertContains(
             $class,
             $this->getRegisteredBootloaders(),
-            \sprintf('Bootloader [%s] was not boot.', $class)
+            \sprintf('Bootloader [%s] was not boot.', $class),
         );
     }
 
@@ -31,7 +31,7 @@ trait InteractsWithCore
         $this->assertNotContains(
             $class,
             $this->getRegisteredBootloaders(),
-            \sprintf('Bootloader [%s] was boot.', $class)
+            \sprintf('Bootloader [%s] was boot.', $class),
         );
     }
 
@@ -39,7 +39,7 @@ trait InteractsWithCore
     {
         $this->assertFalse(
             $this->getContainer()->has($alias),
-            \sprintf('Container contains entry with name [%s].', $alias)
+            \sprintf('Container contains entry with name [%s].', $alias),
         );
     }
 
@@ -47,7 +47,7 @@ trait InteractsWithCore
         string $alias,
         ?string $class = null,
         array $params = [],
-        ?\Closure $callback = null
+        ?\Closure $callback = null,
     ): void {
         $class ??= $alias;
 
@@ -64,8 +64,8 @@ trait InteractsWithCore
                 "Container [%s] was found, but binding [%s] does not match [%s].",
                 $alias,
                 $class,
-                get_class($realObject)
-            )
+                get_class($realObject),
+            ),
         );
 
         if ($callback) {
@@ -77,11 +77,11 @@ trait InteractsWithCore
         string $alias,
         ?string $class = null,
         array $params = [],
-        ?\Closure $callback = null
+        ?\Closure $callback = null,
     ): void {
         $this->assertTrue(
             $this->getContainer()->has($alias),
-            \sprintf('Container does not contain entry with name [%s].', $alias)
+            \sprintf('Container does not contain entry with name [%s].', $alias),
         );
 
         $this->assertContainerInstantiable($alias, $class, $params, $callback);
@@ -90,14 +90,14 @@ trait InteractsWithCore
     public function assertContainerBoundNotAsSingleton(
         string $alias,
         string $class,
-        array $params = []
+        array $params = [],
     ): void {
         $this->assertContainerBound($alias, $class, $params);
 
         $this->assertNotSame(
             $this->getContainer()->make($alias, $params),
             $this->getContainer()->make($alias, $params),
-            \sprintf("Container [%s] is bound, but it contains a singleton.", $alias)
+            \sprintf("Container [%s] is bound, but it contains a singleton.", $alias),
         );
     }
 
@@ -107,7 +107,7 @@ trait InteractsWithCore
             $this->assertSame(
                 $realObject,
                 $this->getContainer()->get($alias),
-                \sprintf("Container [%s] is bound, but it contains not a singleton.", $alias)
+                \sprintf("Container [%s] is bound, but it contains not a singleton.", $alias),
             );
 
             if ($callback) {
@@ -127,7 +127,6 @@ trait InteractsWithCore
     /**
      * @param class-string $alias
      * @param class-string|null $interface
-     * @return \Mockery\MockInterface
      */
     public function mockContainer(string $alias, ?string $interface = null): \Mockery\MockInterface
     {
@@ -135,7 +134,7 @@ trait InteractsWithCore
 
         $this->getContainer()->bindSingleton(
             $alias,
-            $mock = \Mockery::mock($interface ?? $alias)
+            $mock = \Mockery::mock($interface ?? $alias),
         );
 
         return $mock;
@@ -151,7 +150,7 @@ trait InteractsWithCore
         $current = $this->getContainer()->get(EnvironmentInterface::class)->getAll();
 
         $this->environment = new Environment(
-            array_merge($current, $env)
+            array_merge($current, $env),
         );
 
         $this->getContainer()->removeBinding(EnvironmentInterface::class);
@@ -167,7 +166,7 @@ trait InteractsWithCore
         $this->assertSame(
             $currentValue,
             $value,
-            \sprintf('Current environment value for key [%s] is [%s], expected [%s].', $key, $currentValue, $value)
+            \sprintf('Current environment value for key [%s] is [%s], expected [%s].', $key, $currentValue, $value),
         );
     }
 
@@ -176,7 +175,7 @@ trait InteractsWithCore
         $this->assertArrayHasKey(
             $key,
             $this->getContainer()->get(EnvironmentInterface::class)->getAll(),
-            \sprintf('Environment does not have key with name [%s].', $key)
+            \sprintf('Environment does not have key with name [%s].', $key),
         );
     }
 

@@ -14,21 +14,20 @@ use Spiral\Storage\BucketInterface;
 final class FakeBucketFactory implements BucketFactoryInterface
 {
     public function __construct(
-        private readonly string $path
-    ) {
-    }
+        private readonly string $path,
+    ) {}
 
     public function createFromAdapter(
         FilesystemAdapter $adapter,
-        string $name = null,
-        UriResolverInterface $resolver = null
+        ?string $name = null,
+        ?UriResolverInterface $resolver = null,
     ): BucketInterface {
         return new FakeBucket(
             new Filesystem(
-                new LocalFilesystemAdapter($this->path . '/' . $name)
+                new LocalFilesystemAdapter($this->path . '/' . $name),
             ),
             $name,
-            $resolver
+            $resolver,
         );
     }
 }

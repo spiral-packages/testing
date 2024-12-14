@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Spiral\Testing;
 
-use Closure;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 use Spiral\Boot\AbstractKernel;
@@ -20,30 +19,33 @@ use Spiral\Testing\Attribute\TestScope;
 
 abstract class TestCase extends BaseTestCase
 {
-    use Traits\InteractsWithConsole,
-        Traits\InteractsWithHttp,
-        Traits\InteractsWithCore,
-        Traits\InteractsWithFileSystem,
-        Traits\InteractsWithConfig,
-        Traits\InteractsWithDispatcher,
-        Traits\InteractsWithMailer,
-        Traits\InteractsWithQueue,
-        Traits\InteractsWithEvents,
-        Traits\InteractsWithStorage,
-        Traits\InteractsWithExceptions,
-        Traits\InteractsWithViews,
-        Traits\InteractsWithTranslator,
-        Traits\InteractsWithScaffolder,
-        MockeryPHPUnitIntegration;
+    use Traits\InteractsWithConsole;
+    use Traits\InteractsWithHttp;
+    use Traits\InteractsWithCore;
+    use Traits\InteractsWithFileSystem;
+    use Traits\InteractsWithConfig;
+    use Traits\InteractsWithDispatcher;
+    use Traits\InteractsWithMailer;
+    use Traits\InteractsWithQueue;
+    use Traits\InteractsWithEvents;
+    use Traits\InteractsWithStorage;
+    use Traits\InteractsWithExceptions;
+    use Traits\InteractsWithViews;
+    use Traits\InteractsWithTranslator;
+    use Traits\InteractsWithScaffolder;
+    use MockeryPHPUnitIntegration;
 
     public const ENV = [];
     public const MAKE_APP_ON_STARTUP = true;
 
     private ?TestableKernelInterface $app = null;
-    /** @var array<Closure> */
+
+    /** @var array<\Closure> */
     private array $beforeBooting = [];
-    /** @var array<Closure> */
+
+    /** @var array<\Closure> */
     private array $beforeInit = [];
+
     private ?EnvironmentInterface $environment = null;
 
     /**
@@ -80,24 +82,12 @@ abstract class TestCase extends BaseTestCase
         return dirname(__DIR__);
     }
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        if (static::MAKE_APP_ON_STARTUP) {
-            $variables = [...static::ENV, ...$this->getEnvVariablesFromConfig()];
-            $this->initApp($variables);
-        }
-
-        $this->setUpTraits();
-    }
-
-    public function beforeBooting(Closure $callback): void
+    public function beforeBooting(\Closure $callback): void
     {
         $this->beforeBooting[] = $callback;
     }
 
-    public function beforeInit(Closure $callback): void
+    public function beforeInit(\Closure $callback): void
     {
         $this->beforeInit[] = $callback;
     }
@@ -150,7 +140,7 @@ abstract class TestCase extends BaseTestCase
 
                 $configManager->modify(
                     $config,
-                    new Set($key, $attribute->closure?->__invoke() ?? $attribute->value)
+                    new Set($key, $attribute->closure?->__invoke() ?? $attribute->value),
                 );
             }
         });
@@ -174,13 +164,25 @@ abstract class TestCase extends BaseTestCase
      * @param array<string, string|array|callable|object> $bindings
      * @throws \Throwable
      */
-    public function runScoped(Closure $callback, array $bindings = [], ?string $name = null): mixed
+    public function runScoped(\Closure $callback, array $bindings = [], ?string $name = null): mixed
     {
         if ($this->environment) {
             $bindings[EnvironmentInterface::class] = $this->environment;
         }
 
         return $this->getContainer()->runScope($bindings, $callback);
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        if (static::MAKE_APP_ON_STARTUP) {
+            $variables = [...static::ENV, ...$this->getEnvVariablesFromConfig()];
+            $this->initApp($variables);
+        }
+
+        $this->setUpTraits();
     }
 
     protected function tearDown(): void
@@ -193,7 +195,6 @@ abstract class TestCase extends BaseTestCase
             ->setStaticPropertyValue('container', null);
     }
 
-
     /**
      * @template TClass
      *
@@ -202,7 +203,7 @@ abstract class TestCase extends BaseTestCase
      *
      * @return array<int, TClass>
      */
-    protected function getTestAttributes(string $attribute, string $method = null): array
+    protected function getTestAttributes(string $attribute, ?string $method = null): array
     {
         try {
             $methodName = $method ?? (\method_exists($this, 'name') ? $this->name() : $this->getName(false));
@@ -242,6 +243,34 @@ abstract class TestCase extends BaseTestCase
         return $result;
     }
 
+    private static function runScopes(array $scopes, \Closure $callback, Container $container, array $bindings): mixed
+    {
+        begin:
+        if ($scopes === []) {
+            foreach ($bindings as $key => $value) {
+                $container->removeBinding($key);
+                $container->bind($key, $value);
+            }
+
+            return $container->invoke($callback);
+        }
+
+        $scope = \array_shift($scopes);
+        if ($scope !== null && \in_array($scope, Introspector::scopeNames($container), true)) {
+            goto begin;
+        }
+
+        $isLast = $scopes === [];
+        return $container->runScope(
+            new Scope($scope, $isLast ? $bindings : []),
+            $isLast
+                ? $callback
+                : static function (Container $container) use ($scopes, $callback, $bindings): mixed {
+                    return self::runScopes($scopes, $callback, $container, $bindings);
+                },
+        );
+    }
+
     private function runTraitSetUpOrTearDown(string $method): void
     {
         $ref = new \ReflectionClass(static::class);
@@ -252,7 +281,7 @@ abstract class TestCase extends BaseTestCase
             }
         }
 
-        while($parent = $ref->getParentClass()) {
+        while ($parent = $ref->getParentClass()) {
             foreach ($parent->getTraits() as $trait) {
                 if (\method_exists($this, $name = $method . $trait->getShortName())) {
                     $this->{$name}();
@@ -279,26 +308,5 @@ abstract class TestCase extends BaseTestCase
         }
 
         return null;
-    }
-
-    private static function runScopes(array $scopes, Closure $callback, Container $container, array $bindings): mixed
-    {
-        begin:
-        if ($scopes === []) {
-            return $container->runScope($bindings, $callback);
-        }
-
-
-        $scope = \array_shift($scopes);
-        if ($scopes !== null && \in_array($scope, Introspector::scopeNames(), true)) {
-            goto begin;
-        }
-
-        return $container->runScope(
-            new Scope($scope, []),
-            function (Container $container) use ($scopes, $callback, $bindings): mixed {
-                return self::runScopes($scopes, $callback, $container, $bindings);
-            },
-        );
     }
 }

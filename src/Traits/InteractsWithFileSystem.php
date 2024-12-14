@@ -13,7 +13,7 @@ trait InteractsWithFileSystem
     {
         $this->assertTrue(
             $this->getDirectories()->has($name),
-            \sprintf('Application directory with alias [%s] is not defined.', $name)
+            \sprintf('Application directory with alias [%s] is not defined.', $name),
         );
     }
 
@@ -30,8 +30,8 @@ trait InteractsWithFileSystem
                 'Application directory with alias [%s] does not match [%s]. Current path is [%s]',
                 $name,
                 $path,
-                $currentPath
-            )
+                $currentPath,
+            ),
         );
     }
 
@@ -45,7 +45,7 @@ trait InteractsWithFileSystem
         $dir = $this->getDirectories()->get($name);
 
         if ($path) {
-            return $dir.ltrim($path, '/');
+            return $dir . ltrim($path, '/');
         }
 
         return $dir;

@@ -1,95 +1,107 @@
 {
-  "name": "spiral/testing",
-  "description": "Spiral Framework testing SDK",
-  "keywords": ["spiral-packages", "spiral", "testing"],
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Anton Titov (wolfy-j)",
-      "email": "wolfy-j@spiralscout.com"
+    "name": "spiral/testing",
+    "description": "Spiral Framework testing SDK",
+    "keywords": [
+        "spiral-packages",
+        "spiral",
+        "testing"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anton Titov (wolfy-j)",
+            "email": "wolfy-j@spiralscout.com"
+        },
+        {
+            "name": "Pavel Buchnev (butschster)",
+            "email": "pavel.buchnev@spiralscout.com"
+        },
+        {
+            "name": "Aleksei Gagarin (roxblnfk)",
+            "email": "alexey.gagarin@spiralscout.com"
+        },
+        {
+            "name": "Maksim Smakouz (msmakouz)",
+            "email": "maksim.smakouz@spiralscout.com"
+        },
+        {
+            "name": "RoadRunner Community",
+            "homepage": "https://github.com/spiral/roadrunner/graphs/contributors"
+        }
+    ],
+    "homepage": "https://spiral.dev/",
+    "support": {
+        "docs": "https://spiral.dev/docs/testing-start",
+        "issues": "https://github.com/spiral/testing/issues",
+        "chat": "https://discord.gg/TFeEmCs"
     },
-    {
-      "name": "Pavel Buchnev (butschster)",
-      "email": "pavel.buchnev@spiralscout.com"
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/spiral"
+        }
+    ],
+    "require": {
+        "ext-json": "*",
+        "php": ">=8.1",
+        "nyholm/psr7": "^1.5",
+        "mockery/mockery": "^1.5",
+        "phpunit/phpunit": "^9.6 || ^10.0 | ^11.0",
+        "spiral/auth": "^3.14.8",
+        "spiral/auth-http": "^3.14.8",
+        "spiral/boot": "^3.14.8",
+        "spiral/events": "^3.14.8",
+        "spiral/console": "^3.14.8",
+        "spiral/core": "^3.14.8",
+        "spiral/http": "^3.14.8",
+        "spiral/mailer": "^3.14.8",
+        "spiral/queue": "^3.14.8",
+        "spiral/session": "^3.14.8",
+        "spiral/security": "^3.14.8",
+        "spiral/tokenizer": "^3.14.8",
+        "spiral/storage": "^3.14.8",
+        "spiral/views": "^3.14.8",
+        "spiral/translator": "^3.14.8",
+        "spiral/scaffolder": "^3.14.8",
+        "symfony/mime": "^6.0 || ^7.0"
     },
-    {
-      "name": "Aleksei Gagarin (roxblnfk)",
-      "email": "alexey.gagarin@spiralscout.com"
+    "suggest": {
+        "brianium/paratest": "Required to run tests in parallel (^6.0).",
+        "ext-gd": "Required to use generate fake image files"
     },
-    {
-      "name": "Maksim Smakouz (msmakouz)",
-      "email": "maksim.smakouz@spiralscout.com"
+    "require-dev": {
+        "spiral-packages/league-event": "^1.0.1",
+        "spiral/code-style": "^2.2",
+        "spiral/dumper": "^3.3",
+        "spiral/framework": "^3.14.8",
+        "spiral/nyholm-bridge": "^1.3",
+        "spiral/roadrunner-bridge": "^2.2 || ^3.7 || ^4.0",
+        "vimeo/psalm": "^5.9"
     },
-    {
-      "name": "RoadRunner Community",
-      "homepage": "https://github.com/spiral/roadrunner/graphs/contributors"
+    "autoload": {
+        "psr-4": {
+            "Spiral\\Testing\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Spiral\\Testing\\Tests\\App\\": "tests/app",
+            "Spiral\\Testing\\Tests\\": "tests/src"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "spiral/composer-publish-plugin": false
+        }
+    },
+    "scripts": {
+        "cs:diff": "php-cs-fixer fix --dry-run -v --diff",
+        "cs:fix": "php-cs-fixer fix -v",
+        "psalm": "psalm",
+        "psalm:baseline": "psalm --set-baseline=psalm-baseline.xml",
+        "test": "phpunit --color=always"
     }
-  ],
-  "homepage": "https://spiral.dev/",
-  "support": {
-    "docs": "https://spiral.dev/docs/testing-start",
-    "issues": "https://github.com/spiral/testing/issues",
-    "forum": "https://forum.roadrunner.dev/",
-    "chat": "https://discord.gg/TFeEmCs"
-  },
-  "funding": [
-    {
-      "type": "github",
-      "url": "https://github.com/sponsors/roadrunner-server"
-    }
-  ],
-  "require": {
-    "ext-json": "*",
-    "php": ">=8.1",
-    "nyholm/psr7": "^1.5",
-    "mockery/mockery": "^1.5",
-    "phpunit/phpunit": "^9.6 || ^10.0 || ^11.0",
-    "spiral/auth": "^3.14.3",
-    "spiral/auth-http": "^3.14.3",
-    "spiral/boot": "^3.14.3",
-    "spiral/events": "^3.14.3",
-    "spiral/console": "^3.14.3",
-    "spiral/core": "^3.14.3",
-    "spiral/http": "^3.14.3",
-    "spiral/mailer": "^3.14.3",
-    "spiral/queue": "^3.14.3",
-    "spiral/session": "^3.14.3",
-    "spiral/security": "^3.14.3",
-    "spiral/tokenizer": "^3.14.3",
-    "spiral/storage": "^3.14.3",
-    "spiral/views": "^3.14.3",
-    "spiral/translator": "^3.14.3",
-    "spiral/scaffolder": "^3.14.3",
-    "symfony/mime": "^6.0 || ^7.0"
-  },
-  "suggest": {
-    "brianium/paratest": "Required to run tests in parallel (^6.0).",
-    "ext-gd": "Required to use generate fake image files"
-  },
-  "require-dev": {
-    "spiral/dumper": "^3.3",
-    "spiral/framework": "^3.14.3",
-    "spiral/roadrunner-bridge": "^2.2 || ^3.7 || ^4.0",
-    "spiral-packages/league-event": "^1.0.1",
-    "spiral/nyholm-bridge": "^1.3",
-    "vimeo/psalm": "^5.9"
-  },
-  "autoload": {
-    "psr-4": {
-      "Spiral\\Testing\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Spiral\\Testing\\Tests\\App\\": "tests/app",
-      "Spiral\\Testing\\Tests\\": "tests/src"
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "config": {
-    "allow-plugins": {
-      "spiral/composer-publish-plugin": false
-    }
-  }
 }

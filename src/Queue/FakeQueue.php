@@ -35,50 +35,32 @@ class FakeQueue implements QueueInterface
     public function __construct(
         private readonly HandlerRegistryInterface $registry,
         private readonly string                   $name,
-        private readonly string                   $driver
-    )
-    {
-    }
+        private readonly string                   $driver,
+    ) {}
 
     /**
      * @return list<TJob>
      */
-    private function filterJobs(string $name, \Closure $callback = null): array
-    {
-        $jobs = $this->jobs[$name] ?? [];
-
-        $callback = $callback ?: static function (array $data): bool {
-            return true;
-        };
-
-        return \array_filter($jobs, static function (array $data) use ($callback) {
-            return $callback($data);
-        });
-    }
-
-    /**
-     * @return list<TJob>
-     */
-    public function assertPushed(string $name, \Closure $callback = null): array
+    public function assertPushed(string $name, ?\Closure $callback = null): array
     {
         $jobs = $this->filterJobs($name, $callback);
 
         TestCase::assertTrue(
             \count($jobs) > 0,
-            \sprintf('The expected job [%s] was not pushed.', $name)
+            \sprintf('The expected job [%s] was not pushed.', $name),
         );
 
         return $jobs;
     }
 
-    public function assertNotPushed(string $name, \Closure $callback = null): void
+    public function assertNotPushed(string $name, ?\Closure $callback = null): void
     {
         $jobs = $this->filterJobs($name, $callback);
 
         TestCase::assertCount(
             0,
             $jobs,
-            \sprintf('The unexpected job [%s] was pushed.', $name)
+            \sprintf('The unexpected job [%s] was pushed.', $name),
         );
     }
 
@@ -89,7 +71,7 @@ class FakeQueue implements QueueInterface
         TestCase::assertCount(
             0,
             $this->jobs,
-            \sprintf('The following jobs were pushed unexpectedly: %s', $jobs)
+            \sprintf('The following jobs were pushed unexpectedly: %s', $jobs),
         );
     }
 
@@ -107,8 +89,8 @@ class FakeQueue implements QueueInterface
                 'The expected job [%s] was sent {%d} times instead of {%d} times.',
                 $name,
                 \count($jobs),
-                $times
-            )
+                $times,
+            ),
         );
 
         return $jobs;
@@ -117,7 +99,7 @@ class FakeQueue implements QueueInterface
     /**
      * @return list<TJob>
      */
-    public function assertPushedOnQueue(string $queue, string $name, \Closure $callback = null): array
+    public function assertPushedOnQueue(string $queue, string $name, ?\Closure $callback = null): array
     {
         return $this->assertPushed($name, static function (array $data) use ($queue, $callback) {
             if ($data['options']->getQueue() !== $queue) {
@@ -128,11 +110,11 @@ class FakeQueue implements QueueInterface
         });
     }
 
-    public function push(string $name, mixed $payload = [], OptionsInterface $options = null): string
+    public function push(string $name, mixed $payload = [], ?OptionsInterface $options = null): string
     {
         $this->jobs[$name][] = [
             'name' => $name,
-            'handler' => \class_exists($name) ? $this->registry->getHandler($name): null,
+            'handler' => \class_exists($name) ? $this->registry->getHandler($name) : null,
             'payload' => $payload,
             'options' => $options ?? new Options(),
         ];
@@ -143,5 +125,21 @@ class FakeQueue implements QueueInterface
     public function clear(): void
     {
         $this->jobs = [];
+    }
+
+    /**
+     * @return list<TJob>
+     */
+    private function filterJobs(string $name, ?\Closure $callback = null): array
+    {
+        $jobs = $this->jobs[$name] ?? [];
+
+        $callback = $callback ?: static function (array $data): bool {
+            return true;
+        };
+
+        return \array_filter($jobs, static function (array $data) use ($callback) {
+            return $callback($data);
+        });
     }
 }

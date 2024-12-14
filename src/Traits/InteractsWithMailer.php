@@ -22,7 +22,7 @@ trait InteractsWithMailer
         $container->removeBinding(MailerInterface::class);
         $container->bindSingleton(
             MailerInterface::class,
-            $mailer = new FakeMailer()
+            $mailer = new FakeMailer(),
         );
 
         return $mailer;

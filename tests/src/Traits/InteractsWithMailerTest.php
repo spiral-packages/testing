@@ -28,15 +28,14 @@ final class InteractsWithMailerTest extends TestCase
         self::assertSame($mailer, $mailer2);
     }
 
-    private function getSomeService(Container $container):object
+    private function getSomeService(Container $container): object
     {
-        return new class ($container) {
+        return new class($container) {
             use InteractsWithMailer;
 
             public function __construct(
-                private readonly Container $container
-            )  {
-            }
+                private readonly Container $container,
+            ) {}
 
             public function getContainer(): Container
             {

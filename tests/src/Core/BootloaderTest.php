@@ -17,7 +17,7 @@ final class BootloaderTest extends TestCase
     {
         $this->assertContainerBoundAsSingleton(
             PostRepositoryInterface::class,
-            ArrayPostRepository::class
+            ArrayPostRepository::class,
         );
     }
 
@@ -25,7 +25,7 @@ final class BootloaderTest extends TestCase
     {
         $this->assertContainerBound(
             BlogServiceInterface::class,
-            BlogService::class
+            BlogService::class,
         );
     }
 
@@ -33,7 +33,7 @@ final class BootloaderTest extends TestCase
     {
         $this->assertContainerBoundNotAsSingleton(
             BlogServiceInterface::class,
-            BlogService::class
+            BlogService::class,
         );
     }
 
@@ -43,13 +43,13 @@ final class BootloaderTest extends TestCase
         $this->expectExceptionMessage(
             \sprintf(
                 'Container [%s] is bound, but it contains not a singleton.',
-                BlogServiceInterface::class
-            )
+                BlogServiceInterface::class,
+            ),
         );
 
         $this->assertContainerBoundAsSingleton(
             BlogServiceInterface::class,
-            BlogService::class
+            BlogService::class,
         );
     }
 }

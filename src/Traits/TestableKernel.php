@@ -11,7 +11,6 @@ use Spiral\Core\Internal\Introspector;
 
 trait TestableKernel
 {
-    /** @inheritDoc */
     public function getContainer(): Container
     {
         $scopedContainer = ContainerScope::getContainer();
@@ -25,17 +24,22 @@ trait TestableKernel
         return $this->container;
     }
 
-    /** @return array<class-string<DispatcherInterface>> */
+    /**
+     * @return array<class-string<DispatcherInterface>>
+     */
     public function getRegisteredDispatchers(): array
     {
-        return \array_map(static fn (string|DispatcherInterface $dispatcher): string => \is_object($dispatcher)
+        return \array_map(
+            static fn(string|DispatcherInterface $dispatcher): string => \is_object($dispatcher)
             ? $dispatcher::class
             : $dispatcher,
-            $this->dispatchers
+            $this->dispatchers,
         );
     }
 
-    /** @return array<class-string> */
+    /**
+     * @return array<class-string>
+     */
     public function getRegisteredBootloaders(): array
     {
         return $this->bootloader->getClasses();

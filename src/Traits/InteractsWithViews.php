@@ -17,7 +17,7 @@ trait InteractsWithViews
     {
         $this->assertSame(
             $expected,
-            $this->getViews()->render($path, $data)
+            $this->getViews()->render($path, $data),
         );
     }
 
@@ -25,7 +25,7 @@ trait InteractsWithViews
     {
         $result = $this->getViews()->render($path, $data);
 
-        foreach ((array)$strings as $string) {
+        foreach ((array) $strings as $string) {
             $this->assertStringContainsString($string, $result);
         }
     }
@@ -34,7 +34,7 @@ trait InteractsWithViews
     {
         $result = $this->getViews()->render($path, $data);
 
-        foreach ((array)$strings as $string) {
+        foreach ((array) $strings as $string) {
             $this->assertStringNotContainsString($string, $result);
         }
     }

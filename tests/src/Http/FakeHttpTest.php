@@ -66,12 +66,12 @@ final class FakeHttpTest extends TestCase
         $http = $this->fakeHttp();
         $arr = [
             'foo' => 'bar',
-            'list' => [1, 2, 3, 4]
+            'list' => [1, 2, 3, 4],
         ];
         $response = $http->get('/get/query-params', $arr);
         self::assertSame(
             $arr,
-            $response->getJsonParsedBody()
+            $response->getJsonParsedBody(),
         );
     }
 

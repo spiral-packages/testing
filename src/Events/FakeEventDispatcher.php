@@ -22,8 +22,7 @@ class FakeEventDispatcher implements EventDispatcherInterface
         private readonly array $eventsToFake = [],
         private readonly ?EventDispatcherInterface $eventDispatcher = null,
         private readonly ?ListenerProviderInterface $listenerProvider = null,
-    ) {
-    }
+    ) {}
 
     public function dispatch(object $event): ?object
     {
@@ -72,8 +71,8 @@ class FakeEventDispatcher implements EventDispatcherInterface
             \sprintf(
                 'Event [%s] does not have the [%s] listener attached to it.',
                 $expectedEvent::class,
-                $expectedListener
-            )
+                $expectedListener,
+            ),
         );
     }
 
@@ -85,7 +84,7 @@ class FakeEventDispatcher implements EventDispatcherInterface
     {
         PHPUnit::assertTrue(
             \count($this->dispatched($event, $callback)) > 0,
-            "The expected [{$event}] event was not dispatched."
+            "The expected [{$event}] event was not dispatched.",
         );
     }
 
@@ -102,7 +101,7 @@ class FakeEventDispatcher implements EventDispatcherInterface
         PHPUnit::assertSame(
             $times,
             $count,
-            "The expected [{$event}] event was dispatched {$count} times instead of {$times} times."
+            "The expected [{$event}] event was dispatched {$count} times instead of {$times} times.",
         );
     }
 
@@ -116,7 +115,7 @@ class FakeEventDispatcher implements EventDispatcherInterface
         PHPUnit::assertCount(
             0,
             $this->dispatched($event, $callback),
-            "The unexpected [{$event}] event was dispatched."
+            "The unexpected [{$event}] event was dispatched.",
         );
     }
 
@@ -130,7 +129,7 @@ class FakeEventDispatcher implements EventDispatcherInterface
         PHPUnit::assertSame(
             0,
             $count,
-            "{$count} unexpected events were dispatched."
+            "{$count} unexpected events were dispatched.",
         );
     }
 
@@ -150,7 +149,7 @@ class FakeEventDispatcher implements EventDispatcherInterface
 
         return \array_filter(
             $this->dispatchedEvents[$event],
-            static fn(object $event): bool => $callback($event)
+            static fn(object $event): bool => $callback($event),
         );
     }
 

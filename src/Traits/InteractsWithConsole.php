@@ -20,11 +20,11 @@ trait InteractsWithConsole
         string $command,
         array $args = [],
         array|string $strings = [],
-        ?int $verbosityLevel = null
+        ?int $verbosityLevel = null,
     ): void {
         $output = $this->runCommand($command, $args);
 
-        foreach ((array)$strings as $string) {
+        foreach ((array) $strings as $string) {
             $this->assertStringContainsString(
                 $string,
                 $output,
@@ -32,8 +32,8 @@ trait InteractsWithConsole
                     'Console command [%s] with args [%s] does not contain string [%s]',
                     $command,
                     json_encode($args),
-                    $string
-                )
+                    $string,
+                ),
             );
         }
     }
@@ -42,18 +42,20 @@ trait InteractsWithConsole
     {
         $this->assertTrue(
             $this->getConsole()->getApplication()->has($name),
-            \sprintf('Command [%s] is not registered.', $name)
+            \sprintf('Command [%s] is not registered.', $name),
         );
     }
 
     final public function runCommand(
         string $command,
         array $args = [],
-        OutputInterface $output = null,
-        ?int $verbosityLevel = null
+        ?OutputInterface $output = null,
+        ?int $verbosityLevel = null,
     ): string {
         $input = new ArrayInput($args);
+        $input->setInteractive(false);
         $output = $output ?? new BufferedOutput();
+        /** @psalm-suppress ArgumentTypeCoercion */
         $output->setVerbosity($verbosityLevel ?? $this->defaultVerbosityLevel);
 
         $this->getConsole()->run($command, $input, $output);

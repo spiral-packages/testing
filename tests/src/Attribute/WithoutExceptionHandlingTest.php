@@ -15,7 +15,7 @@ final class WithoutExceptionHandlingTest extends TestCase
     {
         $this->assertInstanceOf(
             ExceptionHandler::class,
-            $this->getContainer()->get(ExceptionHandlerInterface::class)
+            $this->getContainer()->get(ExceptionHandlerInterface::class),
         );
     }
 
@@ -25,7 +25,7 @@ final class WithoutExceptionHandlingTest extends TestCase
 
         $this->assertNotInstanceOf(
             ExceptionHandler::class,
-            $this->getContainer()->get(ExceptionHandlerInterface::class)
+            $this->getContainer()->get(ExceptionHandlerInterface::class),
         );
     }
 
@@ -34,7 +34,7 @@ final class WithoutExceptionHandlingTest extends TestCase
     {
         $this->assertNotInstanceOf(
             ExceptionHandler::class,
-            $this->getContainer()->get(ExceptionHandlerInterface::class)
+            $this->getContainer()->get(ExceptionHandlerInterface::class),
         );
     }
 }
